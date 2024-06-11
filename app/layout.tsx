@@ -16,7 +16,7 @@ import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 
-import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 import MailIcon from "@mui/icons-material/Mail";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -28,21 +28,18 @@ import HomeIcon from "@mui/icons-material/Home";
 const drawerWidth = 240;
 
 interface Props {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * Remove this when copying and pasting into your project.
-   */
-  window?: () => Window;
+
 }
 
-export default function RootLayout(
-  props: Props & { children: React.ReactNode }
-) {
-  const { window, children } = props;
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [isClosing, setIsClosing] = React.useState(false);
-  const [currentPath, setCurrentPath] = React.useState("");
-  const router = useRouter();
+  const [currentPath, setCurrentPath] = React.useState("Home");
+  const pathname = usePathname();
 
   const handleDrawerClose = () => {
     setIsClosing(true);
@@ -59,9 +56,9 @@ export default function RootLayout(
     }
   };
 
-  const handlePath = (url: string) => {
-    setCurrentPath(url);
-  };
+  React.useEffect(()=>{
+    setCurrentPath(pathname);
+  },[currentPath])
 
   const Links = ["test", "api", "404"];
   const Links2 = ["home"];
@@ -87,7 +84,7 @@ export default function RootLayout(
       <Divider />
       <List>
         {Links.map((text, index) => (
-          <ListItem key={text} disablePadding onClick={()=>handlePath(text)}>
+          <ListItem key={text} disablePadding>
             <ListItemButton href={text}>
               <ListItemIcon>{Icons(text)}</ListItemIcon>
               <ListItemText primary={text} />
@@ -98,7 +95,7 @@ export default function RootLayout(
       <Divider />
       <List>
         {Links2.map((text, index) => (
-          <ListItem key={text} disablePadding onClick={()=>handlePath(text)}>
+          <ListItem key={text} disablePadding >
             <ListItemButton href={text}>
               <ListItemIcon>{Icons(text)}</ListItemIcon>
               <ListItemText primary={text} />
@@ -109,9 +106,6 @@ export default function RootLayout(
     </div>
   );
 
-  // Remove this const when copying and pasting into your project.
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
   return (
     <html lang="ja">
       <body>
@@ -146,7 +140,7 @@ export default function RootLayout(
           >
             {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
             <Drawer
-              container={container}
+              
               variant="temporary"
               open={mobileOpen}
               onTransitionEnd={handleDrawerTransitionEnd}
