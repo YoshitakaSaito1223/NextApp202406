@@ -85,7 +85,7 @@ export default function RootLayout({
       <List>
         {Links.map((text, index) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton href={text}>
+            <ListItemButton href={"/NextApp202406/"+text}>
               <ListItemIcon>{Icons(text)}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
@@ -96,7 +96,7 @@ export default function RootLayout({
       <List>
         {Links2.map((text, index) => (
           <ListItem key={text} disablePadding >
-            <ListItemButton href={text}>
+            <ListItemButton href={"/NextApp202406/"+text}>
               <ListItemIcon>{Icons(text)}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItemButton>
