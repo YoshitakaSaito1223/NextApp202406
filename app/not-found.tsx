@@ -17,7 +17,7 @@ export default function NotFound() {
       >
         <Typography variant="h1">404 Not Found</Typography>
 
-        <Button href="/">Take Me Back To Home</Button>
+        <Button href="/NextApp202406/">Take Me Back To Home</Button>
       </Grid>
     </>
   );
